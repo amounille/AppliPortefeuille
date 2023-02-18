@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,11 +31,26 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // Set their role
+            if ($user->getRoles() == 'USER' ){
+
+                $user->setRoles(['ROLE_USER']);
+            }
+
+            if ($user->getRoles() == 'ADMIN' ){
+
+                $user->setRoles(['ROLE_ADMIN']);
+            }
+            if ($user->getRoles() == 'PROF' ){
+
+                $user->setRoles(['ROLE_PROF']);
+            }
+
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('list');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [

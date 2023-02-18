@@ -3,8 +3,12 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Doctrine\DBAL\Types\ArrayType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,6 +29,39 @@ class RegistrationFormType extends AbstractType
                     'class' => 'bg-transparent block mt-10 mx-auto border-b-2 w-1/5 h-20 text-2xl outline-none',
                     'placeholder' => 'Email'
                 ],
+            ])
+            ->add('first_name', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'bg-transparent block mt-10 mx-auto border-b-2 w-1/5 h-20 text-2xl outline-none',
+                    'placeholder' => 'Prénom'
+                ],
+            ])
+            ->add('name', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'bg-transparent block mt-10 mx-auto border-b-2 w-1/5 h-20 text-2xl outline-none',
+                    'placeholder' => 'Nom'
+                ],
+            ])
+            ->add('roles', ChoiceType::class, [
+                'label' => false,
+                'choices' => [
+                    'User' => 'ROLE_USER',
+                    'Admin' => 'ROLE_ADMIN',
+                    'Prof' => 'ROLE_PROF',
+                ],
+                'multiple' => true,
+                'expanded' => true,
+            ])
+            ->add('birthdate', BirthdayType::class, [
+                'label' => false,
+                'placeholder' => [
+                    'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
+                ],
+                'required' => true,
+                'format' => 'dd-MM-yyyy',
+                'years' => range(date('Y'), date('Y') - 100),
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -57,6 +94,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

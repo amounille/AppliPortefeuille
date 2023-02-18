@@ -24,6 +24,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
+    #[ORM\Column]
+    private ?\DateTime $birthdate;
+
+    #[ORM\Column(length: 180, unique: false)]
+    private ?string $name = null;
+
+    #[ORM\Column(length: 180, unique: false)]
+    private ?string $first_name = null;
+
     /**
      * @var string The hashed password
      */
@@ -90,7 +99,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    /**
+     * Get the value of birthdate
+     *
+     * @return  \DateTime|null
+     */
+    public function getBirthdate(): ?\DateTime
+    {
+        return $this->birthdate;
+    }
 
+    /**
+     * Set the value of birthdate
+     *
+     * @param \DateTime|null $birthdate
+     *
+     * @return  self
+     */
+    public function setBirthdate(?\DateTime $birthdate): self
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
     /**
      * @see UserInterface
      */
@@ -98,5 +129,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     */
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFirstName(): ?string
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * @param string|null $first_name
+     */
+    public function setFirstName(?string $first_name): void
+    {
+        $this->first_name = $first_name;
     }
 }
