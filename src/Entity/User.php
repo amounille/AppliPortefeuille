@@ -27,6 +27,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=180)
+     */
+    private $option;
+
+    /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -42,9 +47,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
     /**
-     * @ORM\Column(type="string", length=180)
+     * @ORM\Column(type="string", length=25)
      */
     private string $name;
+
+    /**
+     * @ORM\Column(type="string", length=180)
+     */
+    private string $discr;
+
+    /**
+     * @ORM\Column(type="string", length=25)
+     */
+    private string $prenom;
     /**
      * @ORM\Column(type="date")
      */
@@ -124,6 +139,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDiscr(): string
+
+    {
+        return (string) $this->discr;
+    }
+
+    public function setDiscr(string $discr): self
+    {
+        $this->discr = $discr;
+
+        return $this;
+    }
+    public function getPrenom(): string
+
+    {
+        return (string) $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+    public function getOption(): ?string
+
+    {
+        return (string) $this->option;
+    }
+
+    public function setOption(string $option): self
+    {
+        $this->option = $option;
 
         return $this;
     }

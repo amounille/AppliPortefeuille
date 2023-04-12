@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -19,6 +21,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
+            ->add('prenom', TextType::class)
             ->add('name', TextType::class)
             ->add('dateDeNaissance', DateType::class, [
                 'widget' => 'single_text',
@@ -29,9 +32,19 @@ class UserType extends AbstractType
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Confirm Password']
             ])
+//            ->add('roles', ChoiceType::class, [
+//                'choices'  => [
+//                    'User' => 'ROLE_USER',
+//                    'Prof' => 'ROLE_ADMIN',
+//                    'Admin' => 'ROLE_PROF',
+//                ],
+//            ])
+            ->add('discr', TextType::class)
+            ->add('option', TextType::class)
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
             ])
+
         ;
     }
 
