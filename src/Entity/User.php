@@ -4,18 +4,15 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
+use phpDocumentor\Reflection\PseudoTypes\IntegerRange;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
- * @InheritanceType("SINGLE_TABLE")
- * @DiscriminatorColumn(name="discr", type="string")
- * @DiscriminatorMap({"prof" = "Prof", "eleve" = "Eleve"})
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -26,35 +23,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $id;
 
+
     /**
      * @ORM\Column(type="string", length=180)
      */
-    private $option;
+    private ?string $option;
+
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
     /**
      * @ORM\Column(type="string", length=25)
      */
     private string $name;
-
-    /**
-     * @ORM\Column(type="string", length=180)
-     */
-    private string $discr;
 
     /**
      * @ORM\Column(type="string", length=25)
@@ -63,7 +57,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="date")
      */
-    private $dateDeNaissance;
+    private ?\DateTimeInterface $dateDeNaissance;
+
+
 
     public function getId(): ?int
     {
@@ -81,6 +77,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+
 
     /**
      * A visual identifier that represents this user.
@@ -143,18 +142,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDiscr(): string
 
-    {
-        return (string) $this->discr;
-    }
-
-    public function setDiscr(string $discr): self
-    {
-        $this->discr = $discr;
-
-        return $this;
-    }
     public function getPrenom(): string
 
     {

@@ -32,14 +32,15 @@ class UserType extends AbstractType
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Confirm Password']
             ])
-//            ->add('roles', ChoiceType::class, [
-//                'choices'  => [
-//                    'User' => 'ROLE_USER',
-//                    'Prof' => 'ROLE_ADMIN',
-//                    'Admin' => 'ROLE_PROF',
-//                ],
-//            ])
-            ->add('discr', TextType::class)
+            ->add('roles', ChoiceType::class, [
+                'choices'  => [
+                    'User' => 'ROLE_USER',
+                    'Admin' => 'ROLE_ADMIN',
+                    'Prof' => 'ROLE_PROF',
+                ],
+                'expanded' => true,
+                'multiple' => true,
+            ])
             ->add('option', TextType::class)
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
