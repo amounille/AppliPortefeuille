@@ -39,7 +39,8 @@ class UserType extends AbstractType
                     'Prof' => 'ROLE_PROF',
                 ],
                 'expanded' => true,
-                'multiple' => true,
+                'multiple' => false,
+                'data' => 'ROLE_USER',
             ])
             ->add('option', TextType::class)
             ->add('submit', SubmitType::class, [
